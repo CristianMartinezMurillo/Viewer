@@ -1,0 +1,61 @@
+<div style="height: 600px;" *ngIf="nodes.length > 0">
+  <ngx-graph
+          class="chart-container"
+          [enableZoom]="false"
+          [draggingEnabled]="false"
+          [links]="links"
+          [nodes]="nodes"
+          [clusters]="cluster"
+          layout="dagreCluster"
+  >
+    <ng-template #defsTemplate>
+      <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+        <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+      </svg:marker>
+    </ng-template>
+
+    <ng-template #clusterTemplate let-cluster>
+      <svg:g
+              class="node cluster"
+              ngx-tooltip
+              [tooltipPlacement]="'top'"
+              [tooltipType]="'tooltip'"
+              [tooltipTitle]="cluster.label"
+      >
+        <svg:rect
+                rx="5"
+                ry="5"
+                [attr.width]="cluster.dimension.width"
+                [attr.height]="cluster.dimension.height"
+                [attr.fill]="cluster.data.color"
+        />
+      </svg:g>
+    </ng-template>
+
+    <ng-template #nodeTemplate let-node>
+      <svg:g class="node" xmlns="http://www.w3.org/2000/xhtml" width="250" height="100">
+        <svg:foreignObject width="250" height="100">
+          <xhtml:div class="cardContainer" xmlns="http://www.w3.org/1999/xhtml">
+            <label class="organizationalUnit">{{node.label}}</label>
+            <label class="user">{{node.user}}</label>
+          </xhtml:div>
+        </svg:foreignObject>
+      </svg:g>
+    </ng-template>
+
+    <ng-template #linkTemplate let-link>
+      <svg:g class="edge">
+        <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
+        <svg:text class="edge-label" text-anchor="middle">
+          <textPath
+                  style="fill: #666;"
+                  [attr.href]="'#' + link.id"
+                  startOffset="50%">
+            {{link.label}} {{ link.receptionType }}
+          </textPath>
+        </svg:text>
+      </svg:g>
+    </ng-template>
+  </ngx-graph>
+
+</div>

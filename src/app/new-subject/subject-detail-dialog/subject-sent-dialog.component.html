@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>
+    {{ detail.message }}
+</h2>
+<mat-dialog-content>
+  <div class="container">
+    <p *ngIf="detail.folio !== '' && detail.folio !== null">Folio generado: {{ detail.folio }}</p>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">
+    <fa-icon [icon]="faCheckCircle" size="1x" style="cursor: pointer"></fa-icon> Aceptar
+  </button>
+</mat-dialog-actions>

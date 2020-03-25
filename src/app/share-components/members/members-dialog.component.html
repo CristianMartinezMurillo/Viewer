@@ -1,0 +1,33 @@
+<h2 mat-dialog-title> Asignar tarea </h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+  <form [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-select formControlName="memberSelect" placeholder="Seleccione un miembro" [ngClass]="{ 'is-invalid': submitted && form.memberSelect.errors }" matInput>
+        <mat-option *ngFor="let user of users" [value]="user.user">
+          {{ user.user.name }}
+        </mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="form.memberSelect.hasError('required')">Debe seleccionar un usuario</mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button mat-butto (click)="selectUser()" n>
+    <!--<fa-icon [icon]="faEdit" size="1x" style="cursor: pointer"></fa-icon> -->
+    Asignar
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">
+    <!--<fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>-->
+    Cerrar
+  </button>
+
+</mat-dialog-actions>

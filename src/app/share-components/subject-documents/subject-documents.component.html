@@ -1,0 +1,21 @@
+<div *ngIf="(documents | async)?.length > 0">
+    <div *ngFor="let document of documents | async" style="cursor: pointer">
+            <span (click)="openDocument(document)">
+                <fa-icon [icon]="icon(document.filename)" size="1x"></fa-icon>
+                {{ document.filename }}
+            </span>
+            <fa-icon *ngIf="document.createdByUserId == userService?.userData?.id || document?.canDownload != false" [icon]="faDownload" size="1x" (click)="downloadSingleFile(document)"></fa-icon>
+    </div>
+    <div *ngIf="canDownloadAll()" (click)="downloadAll();" class="download-section">
+        <fa-icon [icon]="faDownload" size="1x" ></fa-icon>
+        Descargar Todo
+    </div>
+</div>
+<mat-card [hidden]="!showError">
+    <div (click)="resetError()" class="error-icon">
+        <fa-icon [icon]="faClose" size="1x"></fa-icon>
+    </div>
+    <div class="error">
+        {{ errorMessage }}
+    </div>
+</mat-card>

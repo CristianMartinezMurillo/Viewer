@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="admin-title-container mat-typography">
+    <h2><fa-icon [icon]="titleIcon"></fa-icon> Nuevo asunto <strong>{{ processName }} </strong></h2>
+  </div>
+  <mat-divider></mat-divider>
+
+  <app-error-message></app-error-message>
+
+  <mat-horizontal-stepper [linear]="true" #stepper (selectionChange)="onChangeIndex($event)">
+
+    <mat-step label="Nuevo asunto" [stepControl]="isValidSubjectForm()" [completed]="isValidSubjectForm()">
+      <app-metadata #metadataComponent></app-metadata>
+      <button mat-raised-button color="primary" mat-button matStepperNext>Siguiente</button>
+    </mat-step>
+
+
+    <mat-step label="Documentos" [optional]="true">
+
+      <app-upload-file #uploadFileComponent [set-config]="true" [buttonText]="'Adjuntar documentos al asunto'"></app-upload-file>
+
+
+      <button mat-raised-button color="primary" mat-button matStepperNext>Siguiente</button>
+    </mat-step>
+
+    <mat-step label="Destinatarios" [stepControl]="validateRecipientsSelectedAndNext()" [completed]="validateRecipientsSelectedAndNext()">
+      <app-recipients #recipientsComponent></app-recipients>
+
+      <button mat-raised-button color="primary" matStepperNext>Siguiente</button>
+
+    </mat-step>
+
+    <mat-step label="Resumen">
+
+      <app-summary #summaryComponent></app-summary>
+
+      <button mat-raised-button color="primary" #buttonSubmit (click)="submit()">Enviar</button>
+
+    </mat-step>
+
+  </mat-horizontal-stepper>
+
+</div>
+<app-notifier #notifierComponent></app-notifier>

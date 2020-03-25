@@ -1,0 +1,12 @@
+<tree-root #tree [nodes]="nodes" [focused]="true" [options]="treeOptions" style="overflow-y: hidden;">
+  <ng-template #treeNodeTemplate let-node let-index="index">
+    <div *ngIf="node.data.nodeType ===  processNodeName; else mailboxNodeTemplate">
+      <span (click)="onClickNode(node)"><fa-icon *ngIf="node.data?.icon" [icon]="node.data.icon" size="1x" class="user-edit-icon" ></fa-icon> {{ node.data.name }} </span>
+    </div>
+    <ng-template #mailboxNodeTemplate>
+      <span (click)="onClickNode(node)"><fa-icon *ngIf="node.data?.icon" [icon]="node.data.icon" size="1x" class="user-edit-icon" ></fa-icon> {{ node.data.name }} </span>
+      <span *ngIf="node?.data?.unread > 0" matBadgePosition="above after" matBadgeColor="accent" matBadge="{{ node?.data?.unread }}"></span>
+    </ng-template>
+    <!--<button (click)="customaction($event, node)">Custom Action</button>-->
+  </ng-template>
+</tree-root>

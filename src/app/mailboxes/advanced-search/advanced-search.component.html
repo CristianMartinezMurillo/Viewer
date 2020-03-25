@@ -1,0 +1,41 @@
+<div>
+  <form [formGroup]="formGroup">
+
+    <p>Filtrar por fecha de creación del asunto.</p>
+
+    <button class="btn btn-sm button-clear" (click)="resetForm()" title="Limpiar campos">
+      <fa-icon [icon]="faReset" size="1x" style="cursor: pointer;"></fa-icon>
+    </button>
+
+    <mat-form-field>
+      <input matInput placeholder="A partir de..." formControlName="startDate"
+             [matDatepicker]="fromPicker"
+             [readonly]="true"
+             [max]="form.endDate.value"
+      />
+
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+
+      <input matInput placeholder="Hasta..." formControlName="endDate"
+             [matDatepicker]="untilPicker"
+             [readonly]="true"
+             [min]="form.startDate.value"
+      />
+
+      <mat-datepicker-toggle matSuffix [for]="untilPicker"></mat-datepicker-toggle>
+
+      <mat-datepicker #untilPicker></mat-datepicker>
+    </mat-form-field>
+
+    <button class="btn btn-sm btn-primary button-search" (click)="searchAction()">
+      <fa-icon [icon]="faSearch" size="1x" style="cursor: pointer"></fa-icon>
+    </button>
+
+  </form>
+
+</div>

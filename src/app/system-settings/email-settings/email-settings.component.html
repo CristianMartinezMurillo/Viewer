@@ -1,0 +1,88 @@
+<app-notifier></app-notifier>
+<p>
+  Templates de notificación por correo, escriba el formato HTML para construir el mensaje de notificación deseado.
+</p>
+
+<p>
+  Cada correo lleva variables que el sistema puede buscar dentro del cuerpo del correo, esto ayuda a que puedas personalizar
+  el contenido del mensaje, el sistema cuenta con las siguientes variables:
+</p>
+<div>
+  <table class="table table-info">
+    <thead>
+      <th>Variable</th>
+      <th>Descripción</th>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{ '{{username}\}' }}</td>
+      <td>Nombre del usuario a quién va dirigida la notificación</td>
+    </tr>
+    <tr>
+      <td>{{ '{{title}\}' }}</td>
+      <td>Título del asunto</td>
+    </tr>
+    <tr>
+      <td>{{ '{{folio}\}' }}</td>
+      <td>Folio del asunto</td>
+    </tr>
+    <tr>
+      <td>{{ '{{startDate}\}' }}</td>
+      <td>Fecha de inicio del asunto</td>
+    </tr>
+    <tr>
+      <td>{{ '{{endDate}\}' }}</td>
+      <td>Fecha fin de resolución del asunto</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<form [formGroup]="formGroup">
+  <mat-card *ngFor="let template of emailTemplate; index as i" class="template-container">
+    <mat-card-title class="title">{{ template.title }}</mat-card-title>
+
+    <mat-card-content>
+      <div *ngIf="template.editMode;else editionTemplate">
+        <div class="text-right mt-full-width">
+          <button class="btn btn-sm" (click)="changeEditMode(i)" title="Previsualizar">
+            <fa-icon [icon]="faView" size="1x"></fa-icon>
+          </button>
+          <button class="btn btn-sm" (click)="resetTemplate(i, template)" title="Reestablecer template original">
+            <fa-icon [icon]="faReset" size="1x"></fa-icon>
+          </button>
+        </div>
+        <mat-form-field class="mt-full-width">
+          <textarea matInput [formControlName]="template.code" [ngClass]="{ 'is-invalid': submitted && form[template.code].errors }" ></textarea>
+          <mat-error *ngIf="submitted && form[template.code].errors" class="invalid-feedback">
+            <div *ngIf="form[template.code].errors.required">Mensaje requerido</div>
+          </mat-error>
+        </mat-form-field>
+
+      </div>
+
+      <ng-template #editionTemplate>
+        <div class="text-right mt-full-width">
+          <button class="btn btn-sm" (click)="changeEditMode(i)" title="Editar">
+            <fa-icon [icon]="faEdit" size="1x"></fa-icon>
+          </button>
+          <button class="btn btn-sm" (click)="resetTemplate(i, template)" title="Reestablecer template original">
+            <fa-icon [icon]="faReset" size="1x"></fa-icon>
+          </button>
+        </div>
+        <div [innerHTML]="emailTemplate[i].template | sanitizeHtml"></div>
+      </ng-template>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button class="btn btn-sm btn-info" (click)="saveChanges(template)" [disabled]="disabledButton">
+        <fa-icon [icon]="faSave" size="1x"></fa-icon> Modificar Template
+      </button>
+    </mat-card-actions>
+
+
+  </mat-card>
+
+</form>
+
+<app-error-message></app-error-message>

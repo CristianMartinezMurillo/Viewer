@@ -1,0 +1,137 @@
+<p class="title" *ngIf="tasks | async"> Tareas </p>
+
+<app-error-message></app-error-message>
+
+<!--<div *ngIf="userService.isOperador(organizationalUnitId)">-->
+    <div *ngFor="let task of tasks | async">
+
+      <mat-card *ngIf="canSeeTask(task)">
+        <mat-card-header>
+          <mat-card-title>{{ task.description }} </mat-card-title>
+          <mat-card-subtitle>
+
+            <div *ngIf="task.completed">
+              <span class="task-completed">Tarea completada</span>
+            </div>
+
+            <p *ngIf="task?.userAssigned !== null">
+              <span class="user-assigned-label">Asignado a: </span>
+              <span class="user-assigned-text">{{ task.userAssigned.name + " " + task.userAssigned.last_name }} </span>
+            </p>
+
+          </mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+
+          <div class="answers-wrapper" *ngFor="let answer of task.answers">
+            <div>
+              <span>Respondío: </span> {{ answer.user.name + " " + answer.user.last_name }}
+
+              <span> {{ answer.created_at }} </span>
+            </div>
+
+            <div class="answer-text"> {{ answer.answer }} </div>
+
+            <app-subject-documents [repositoryType]="'tasks'"></app-subject-documents>
+
+            <mat-divider></mat-divider>
+
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button *ngIf="!task.completed" (click)="openTaskAnswerDialog(task)" class="btn btn-sm btn-info">
+            <fa-icon [icon]="answerIcon" size="1x" style="cursor: pointer"></fa-icon> Responder
+          </button>
+
+          <button *ngIf="canAssignTask(task)" (click)="showUsersDialog(task)"
+                  class="btn btn-primary btn-sm">
+            <fa-icon [icon]="faUser" size="1x" style="cursor: pointer"></fa-icon>
+            <span *ngIf="!(task.user_id > 0);else reasignar">Asignar</span>
+            <ng-template #reasignar> Reasignar </ng-template>
+          </button>
+
+          <button *ngIf="canFinishTask(task)"
+                  (click)="finishTask(task)" class="btn btn-sm btn-info">
+            <fa-icon [icon]="answerIcon" size="1x" style="cursor: pointer"></fa-icon> Finalizar
+          </button>
+
+          <button *ngIf="canReopenTask(task)" (click)="reopenTask(task)" class="btn btn-info btn-sm">
+            <fa-icon [icon]="faReopen" size="1x" style="cursor: pointer"></fa-icon>
+            Reabrir
+          </button>
+
+        </mat-card-actions>
+
+
+      </mat-card>
+
+    </div>
+<!--</div>-->
+
+<!--<div *ngIf="userService.isTitular(organizationalUnitId) || userService.isAsistente(organizationalUnitId)">-->
+<!--  <div *ngIf="tasks?.length > 0">-->
+<!--    <div *ngFor="let task of tasks" class="task-description">-->
+
+<!--      <mat-card>-->
+<!--        <mat-card-header>-->
+<!--          <mat-card-title>{{ task.description }} </mat-card-title>-->
+<!--          <mat-card-subtitle>-->
+
+<!--            <div *ngIf="task.completed">-->
+<!--              <span class="task-completed">Tarea completada</span>-->
+<!--            </div>-->
+
+<!--            <p *ngIf="task?.userAssigned !== null">-->
+<!--              <span class="user-assigned-label">Asignado a: </span>-->
+<!--              <span class="user-assigned-text">{{ task.userAssigned.name + " " + task.userAssigned.last_name }} </span>-->
+<!--            </p>-->
+<!--          </mat-card-subtitle>-->
+<!--        </mat-card-header>-->
+
+<!--        <mat-divider></mat-divider>-->
+
+<!--        <mat-card-content>-->
+<!--          <div class="answers-wrapper" *ngFor="let answer of task.answers">-->
+<!--            <div>-->
+<!--              <span>Respondío: </span> {{ answer.user.name + " " + answer.user.last_name }}-->
+
+<!--              <span> {{ answer.created_at }} </span>-->
+<!--            </div>-->
+
+<!--            <div class="answer-text"> {{ answer.answer }} </div>-->
+
+<!--            <app-subject-documents [repositoryType]="'tasks'"></app-subject-documents>-->
+
+<!--            <mat-divider></mat-divider>-->
+
+<!--          </div>-->
+
+<!--        </mat-card-content>-->
+
+<!--        <mat-card-actions>-->
+<!--          <button *ngIf="task.completed == false" (click)="showUsersDialog(task)" class="btn btn-primary btn-sm">-->
+<!--            <fa-icon [icon]="faUser" size="1x" style="cursor: pointer"></fa-icon>-->
+<!--            <span *ngIf="!(task.user_id > 0);else reasignar">Asignar</span>-->
+<!--            <ng-template #reasignar> Reasignar </ng-template>-->
+<!--          </button>-->
+
+<!--          <button (click)="openTaskAnswerDialog(task)" class="btn btn-sm btn-info">-->
+<!--            <fa-icon [icon]="answerIcon" size="1x" style="cursor: pointer"></fa-icon> Responder-->
+<!--          </button>-->
+
+<!--          <button *ngIf="task.completed == true" (click)="reopenTask(task)" class="btn btn-info btn-sm">-->
+<!--            <fa-icon [icon]="faReopen" size="1x" style="cursor: pointer"></fa-icon>-->
+<!--            Reabrir-->
+<!--          </button>-->
+<!--        </mat-card-actions>-->
+
+<!--      </mat-card>-->
+
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+

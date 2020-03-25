@@ -1,0 +1,39 @@
+<div class="alert alert-danger" (click)="hide()" [hidden]="hideErrors" *ngIf="message?.status && errorValidationParams.length">
+    <div class="hide-icon">
+        <fa-icon [icon]="faEyeSlash" size="1x" title="Cerrar" style=""> </fa-icon>
+    </div>
+
+    <div *ngIf="message?.status && errorValidationParams.length === 0">
+        <p> {{ message?.error.message }} </p>
+        <p> {{ message?.message }} </p>
+    </div>
+
+    <div *ngFor="let error of errorValidationParams">
+        <p>{{ error }}</p>
+    </div>
+
+</div>
+
+<div class="alert alert-danger" (click)="hide()" [hidden]="hideErrors" *ngIf="message?.error?.status === false">
+    <div class="hide-icon">
+        <fa-icon [icon]="faEyeSlash" size="1x" title="Cerrar" style=""> </fa-icon>
+    </div>
+
+    <p> {{ message?.error?.message }} </p>
+</div>
+
+<div class="alert alert-warning" (click)="hide()" [hidden]="hideErrors" *ngIf="message?.status === false">
+    <div class="hide-icon">
+        <fa-icon [icon]="faEyeSlash" size="1x" title="Cerrar" style=""> </fa-icon>
+    </div>
+
+    <p> {{ message?.message }} </p>
+</div>
+
+<div class="alert alert-danger" (click)="hide()" [hidden]="hideErrors" *ngIf="message?.status === 500">
+    <div class="hide-icon">
+        <fa-icon [icon]="faEyeSlash" size="1x" title="Cerrar" style=""> </fa-icon>
+    </div>
+
+    <p> {{ message?.statusText }} </p>
+</div>

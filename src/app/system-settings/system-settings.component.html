@@ -1,0 +1,90 @@
+<div class="container">
+  <div class="admin-title-container mat-typography">
+    <h2><fa-icon [icon]="faSettings"></fa-icon> Configuración del sistema</h2>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <app-error-message></app-error-message>
+
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Email templates
+        </mat-panel-title>
+        <mat-panel-description>
+          <!--Type your name and age-->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <app-email-settings [emailTemplate]="emailTemplate"></app-email-settings>
+
+    </mat-expansion-panel>
+    <!--<mat-expansion-panel (opened)="panelOpenState = true"-->
+                         <!--(closed)="panelOpenState = false">-->
+      <!--<mat-expansion-panel-header>-->
+        <!--<mat-panel-title>-->
+          <!--Self aware panel-->
+        <!--</mat-panel-title>-->
+        <!--<mat-panel-description>-->
+          <!--Currently I am {{panelOpenState ? 'open' : 'closed'}}-->
+        <!--</mat-panel-description>-->
+      <!--</mat-expansion-panel-header>-->
+      <!--<p>I'm visible because I am open</p>-->
+    <!--</mat-expansion-panel>-->
+  </mat-accordion>
+
+  <!--<mat-form-field class="mt-full-width">-->
+    <!--<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar usuarios">-->
+  <!--</mat-form-field>-->
+  <!--&lt;!&ndash;<div class="spinner-container" *ngIf="dataSource.loading$ | async">&ndash;&gt;-->
+  <!--&lt;!&ndash;<mat-spinner></mat-spinner>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+  <!--<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">-->
+
+    <!--&lt;!&ndash;- Note that these columns can be defined in any order.-->
+          <!--The actual rendered columns are set as a property on the row definition" &ndash;&gt;-->
+
+    <!--&lt;!&ndash; Position Column &ndash;&gt;-->
+    <!--<ng-container matColumnDef="name">-->
+      <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario </th>-->
+      <!--<td mat-cell *matCellDef="let user"> {{user.name}} </td>-->
+    <!--</ng-container>-->
+
+    <!--&lt;!&ndash; Name Column &ndash;&gt;-->
+    <!--<ng-container matColumnDef="email">-->
+      <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>-->
+      <!--<td mat-cell *matCellDef="let user"> {{user.email}} </td>-->
+    <!--</ng-container>-->
+
+    <!--<ng-container matColumnDef="last_name">-->
+      <!--<th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos</th>-->
+      <!--<td mat-cell *matCellDef="let user"> {{ user.last_name }} <div *ngIf="user.mothers_last_name !== null">{{ user.mothers_last_name }}</div></td>-->
+    <!--</ng-container>-->
+
+
+    <!--<ng-container matColumnDef="actions">-->
+      <!--<th mat-header-cell *matHeaderCellDef>-->
+        <!--<fa-icon [icon]="faUserPlus" size="2x" class="user-add-icon" (click)="openNewUser()" title="Agregar nuevo usuario" style="cursor: pointer"></fa-icon>-->
+      <!--</th>-->
+      <!--<td mat-cell *matCellDef="let user">-->
+        <!--<fa-icon [icon]="faUserEdit" size="1x" class="user-edit-icon" (click)="openEditUser(user)" title="Editar {{ user.name + ' ' + user.last_name }}" style="cursor: pointer"></fa-icon>-->
+        <!--<fa-icon [icon]="faUserDelete" size="1x" class="user-delete-icon" (click)="deleteUser(user)" title="Eliminar {{ user.name + ' ' + user.last_name }}" style="cursor: pointer"></fa-icon>-->
+      <!--</td>-->
+    <!--</ng-container>-->
+
+    <!--<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+    <!--<tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>-->
+  <!--</table>-->
+
+  <!--<div *ngIf="dataSource.data.length === 0"> {{ emptyTableText }}</div>-->
+
+  <!--<mat-paginator [length]=0-->
+                 <!--[pageSize]="tablePageSize"-->
+                 <!--[pageSizeOptions]=tablePageSizeOptions>-->
+  <!--</mat-paginator>-->
+
+</div>
+
+

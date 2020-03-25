@@ -1,0 +1,15 @@
+textarea {
+    height: 150px;
+    background-color: aliceblue;
+}
+
+.title {
+    font-size: 1.2em;
+    color: #4e555b;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.template-container {
+    margin-top: 20px;
+}

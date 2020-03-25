@@ -1,0 +1,11 @@
+.empty-table{
+    margin-top: 20px;
+}
+
+table .mat-tab-body-content {
+    overflow: no-display !important;
+}
+
+table .mat-tab-body.mat-tab-body-active {
+    overflow: no-display !important;
+}

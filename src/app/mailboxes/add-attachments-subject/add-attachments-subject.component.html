@@ -1,0 +1,23 @@
+<h2 mat-dialog-title> Cargar documentos anexos </h2>
+
+<mat-dialog-content>
+  <div *ngIf="!loading">
+    <app-upload-file #uploadFileComponent [set-config]="true" [buttonText]="'Agregar anexos'"></app-upload-file>
+  </div>
+  <ng-container *ngIf="loading">
+    Cargando documentos por favor espere... <mat-spinner [diameter]="25"></mat-spinner>
+  </ng-container>
+  <app-error-message></app-error-message>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button (click)="upload()" class="btn btn-sm btn-info subject-button" [disabled]="loading">
+    <fa-icon [icon]="faUpload" size="1x" style="cursor: pointer"></fa-icon>
+    Cargar
+  </button>
+
+  <button mat-button [mat-dialog-close]="true" class="btn btn-sm subject-button" [disabled]="loading">
+        <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+    Cancelar
+  </button>
+</mat-dialog-actions>

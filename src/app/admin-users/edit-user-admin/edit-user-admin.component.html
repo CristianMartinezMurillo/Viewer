@@ -1,0 +1,70 @@
+<h2 mat-dialog-title> Editar Usuario </h2>
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="newUserform">
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Nombre" formControlName="name"
+             [ngClass]="{ 'is-invalid': submitted && form.name.errors }"/>
+      <mat-error *ngIf="submitted && form.name.errors" class="invalid-feedback">
+        <div *ngIf="form.name.errors.required">Usuario Requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Apellido Paterno" formControlName="last_name"
+             [ngClass]="{ 'is-invalid': submitted && form.last_name.errors }"/>
+      <mat-error *ngIf="submitted && form.last_name.errors" class="invalid-feedback">
+        <div *ngIf="form.last_name.errors.required">Apellido paterno requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Apellido Materno" formControlName="mothers_last_name"
+             [ngClass]="{ 'is-invalid': submitted && form.mothers_last_name.errors }"/>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input type="email" matInput placeholder="Email" formControlName="email"
+             [ngClass]="{ 'is-invalid': submitted && form.email.errors }" />
+    </mat-form-field>
+    <p>Seleccione el tipo de cuenta</p>
+
+    <mat-radio-group formControlName="systemRole_id" class="radio-button-addressee">
+      <mat-radio-button *ngFor="let role of systemUserRoles" [value]="role.id">
+        <div>{{ role.name }} <span class="role-description">{{ role.description }}</span></div>
+      </mat-radio-button>
+    </mat-radio-group>
+
+
+<!--    <mat-form-field class="mt-full-width">-->
+<!--      <input matInput placeholder="Seleccione un área..." type="text" formControlName="organizational_unit" [readonly]="true" >-->
+<!--      <mat-error *ngIf="submitted && form.organizational_unit.errors" class="invalid-feedback">-->
+<!--        <div *ngIf="form.organizational_unit.errors.required">El área es requerido</div>-->
+<!--      </mat-error>-->
+
+<!--    </mat-form-field>-->
+
+<!--    <button *ngIf="usersService.isRoot()" class="btn btn-sm btn-info" (click)="openOrganizationalUnit()">-->
+<!--      Seleccionar-->
+<!--    </button>-->
+
+<!--    <input matInput placeholder="Seleccione un área..." type="text" formControlName="organizational_unit_id" [readonly]="true" [hidden]="true">-->
+
+
+    <!--<mat-form-field class="mt-full-width">-->
+      <!--<mat-select formControlName="role_id" placeholder="Selecciona tu rol dentro del área" [ngClass]="{ 'is-invalid': form.role_id.errors }" matInput>-->
+        <!--<mat-option *ngFor="let role of roles" [value]="role.id">-->
+          <!--{{ role.name }} <span class="organizational-unit-description">{{ (role.description !== null) ? role.description : '' }} </span>-->
+        <!--</mat-option>-->
+      <!--</mat-select>-->
+      <!--<mat-error *ngIf="form.role_id.hasError('required')">Debe seleccionar su rol dentro del área.</mat-error>-->
+    <!--</mat-form-field>-->
+  </form>
+  <app-error-message></app-error-message>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="saveUser()"> Modificar </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">Cancelar</button>
+</mat-dialog-actions>

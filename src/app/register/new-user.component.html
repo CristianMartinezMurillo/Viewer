@@ -1,0 +1,89 @@
+<app-default-navbar></app-default-navbar>
+
+<div class="container">
+<p>Registro de nuevos usuarios</p>
+  <form [formGroup]="formGroup">
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Nombre" formControlName="name"
+             [ngClass]="{ 'is-invalid': submitted && form.name.errors }"/>
+      <mat-error *ngIf="submitted && form.name.errors" class="invalid-feedback">
+        <div *ngIf="form.name.errors.required">Usuario Requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Apellido Paterno" formControlName="last_name"
+             [ngClass]="{ 'is-invalid': submitted && form.last_name.errors }"/>
+      <mat-error *ngIf="submitted && form.last_name.errors" class="invalid-feedback">
+        <div *ngIf="form.last_name.errors.required">Apellido paterno requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Apellido Materno" formControlName="mothers_last_name"
+             [ngClass]="{ 'is-invalid': submitted && form.mothers_last_name.errors }"/>
+    </mat-form-field>
+
+    <p>Seleccione el área donde desempeña sus operaciones.</p>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Seleccione un área..." type="text" formControlName="organizational_unit" [readonly]="true" >
+      <mat-error *ngIf="submitted && form.organizational_unit.errors" class="invalid-feedback">
+        <div *ngIf="form.organizational_unit.errors.required">El área es requerido</div>
+      </mat-error>
+
+    </mat-form-field>
+
+    <button class="btn btn-sm btn-info" (click)="openOrganizationalUnit()" [disabled]="disableButtonRegister">
+      Seleccionar
+    </button>
+
+    <input matInput placeholder="Seleccione un área..." type="text" formControlName="organizational_unit_id" [readonly]="true" [hidden]="true">
+
+    <mat-form-field class="mt-full-width">
+      <mat-select formControlName="role_id" placeholder="Selecciona tu rol dentro del área" [ngClass]="{ 'is-invalid': form.role_id.errors }" matInput>
+        <mat-option *ngFor="let role of roles" [value]="role.id">
+          {{ role.name }} <span class="organizational-unit-description">{{ (role.description !== null) ? role.description : '' }} </span>
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.role_id.hasError('required')">Debe seleccionar su rol dentro del área.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input type="email" matInput placeholder="Email" formControlName="email"
+             [ngClass]="{ 'is-invalid': submitted && form.email.errors }"/>
+      <mat-error *ngIf="submitted && form.email.errors" class="invalid-feedback">
+        <div *ngIf="form.email.errors.required">Email requerido</div>
+        <div *ngIf="form.email.errors.email">Email inválido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input type="password" matInput placeholder="Contraseña" formControlName="password"
+             [ngClass]="{ 'is-invalid': submitted && form.password.errors }" />
+      <mat-error *ngIf="submitted && form.password.errors" class="invalid-feedback">
+        <div *ngIf="form.password.errors.required">Password Requerido</div>
+        <div *ngIf="form.password.errors.minlength">Debe contener al menos 4 caracteres</div>
+        <div *ngIf="!passwordMatch">Las contraseñas deben coincidir</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input type="password" matInput placeholder="Confirmar Contraseña" formControlName="c_password"
+             [ngClass]="{ 'is-invalid': submitted && form.c_password.errors }"  />
+      <mat-error *ngIf="submitted && form.c_password.errors" class="invalid-feedback">
+        <div *ngIf="form.c_password.errors.required">Confirmación de password requerido</div>
+        <div *ngIf="form.c_password.errors.minlength">Debe contener al menos 4 caracteres</div>
+        <div *ngIf="!passwordMatch">Las contraseñas deben coincidir</div>
+      </mat-error>
+    </mat-form-field>
+
+    <input [readonly]="true" [hidden]="true" [value]="true" type="text" matInput placeholder="" formControlName="sendNotificationToAdmin"/>
+
+    <button [disabled]="disableButtonRegister" class="btn btn-primary btn-sm" (click)="saveUser()">Registrarse</button>
+  </form>
+
+  <app-error-message></app-error-message>
+</div>
+
+<app-notifier></app-notifier>

@@ -1,0 +1,85 @@
+<div class="container">
+    <div class="admin-title-container mat-typography">
+        <h2 mat-dialog-title>Perfil de usuario</h2>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <app-error-message></app-error-message>
+
+    <form [formGroup]="formGroup">
+
+        <mat-form-field class="mt-full-width">
+            <input matInput placeholder="Nombre" formControlName="name" [ngClass]="{ 'is-invalid': submitted && form.name.errors }"/>
+            <mat-error *ngIf="submitted && form.name.errors" class="invalid-feedback">
+                <div *ngIf="form.name.errors.required">Usuario Requerido</div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mt-full-width">
+            <input matInput placeholder="Apellido Paterno" formControlName="last_name" [ngClass]="{ 'is-invalid': submitted && form.last_name.errors }" />
+            <mat-error *ngIf="submitted && form.last_name.errors" class="invalid-feedback">
+                <div *ngIf="form.last_name.errors.required">Apellido paterno requerido</div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mt-full-width">
+            <input matInput placeholder="Apellido Materno" formControlName="mothers_last_name" [ngClass]="{ 'is-invalid': submitted && form.mothers_last_name.errors }"/>
+        </mat-form-field>
+
+    </form>
+
+    <button [disabled]="formGroup.invalid" class="btn btn-primary btn-sm" (click)="updateProfile()">
+        <fa-icon [icon]="faUserEdit" size="1x" style="cursor: pointer"></fa-icon>
+        Actualizar Perfil
+    </button>
+
+    <div class="firel-container">
+        <div class="admin-title-container mat-typography">
+            <h2 mat-dialog-title>Cambiar Contraseña</h2>
+        </div>
+        <mat-divider></mat-divider>
+        <p>Para cambiar su contraseña haga click <a [routerLink]="['/panel/user/resetpassword']">aquí</a> </p>
+    </div>
+
+
+    <div class="firel-container">
+        <div class="admin-title-container mat-typography">
+            <h2 mat-dialog-title>Firel</h2>
+        </div>
+        <mat-divider></mat-divider>
+        <!--<div>-->
+            <!--Firel: {{ (user?.firelName === null) ? 'No registrada' : user?.firelName }}-->
+        <!--</div>-->
+        <form [formGroup]="formGroupFirel">
+                <app-upload-file
+                        [isMultiple]="false"
+                        [buttonText]="'Adjuntar Firel'"
+                        [acceptsString]="acceptString">
+                </app-upload-file>
+
+                <p class="text-info">La firel debe tener extensión .pfx</p>
+
+                <mat-form-field *ngIf="uploadFile?.getFilesForm() !== null" class="mt-full-width">
+                    <input type="password" placeholder="Password Firel" formControlName="firelPassword" class="" [ngClass]="{ 'is-invalid': submitted && formFirel.firelPassword.errors }" matInput>
+
+                    <mat-error *ngIf="submitted && formFirel.firelPassword.errors" class="invalid-feedback">
+                        <div *ngIf="formFirel.firelPassword.errors.required">Contraseña requerida</div>
+                        <div *ngIf="formFirel.firelPassword.errors.minLength">Tamaño mínimo de 3 caracteres</div>
+                        <div *ngIf="formFirel.firelPassword.errors.maxLength">Tamaño máximo de 30 caracteres</div>
+                    </mat-error>
+
+                </mat-form-field>
+
+                <button *ngIf="uploadFile.listFiles.length > 0"
+                        class="btn btn-primary"
+                        (click)="updateFirel()"
+                        [disabled]="formGroupFirel.invalid"
+                >
+                    <fa-icon [icon]="idCardIcon" size="1x" style="cursor: pointer"></fa-icon>
+                    Actualizar Firel
+                </button>
+        </form>
+    </div>
+
+</div>

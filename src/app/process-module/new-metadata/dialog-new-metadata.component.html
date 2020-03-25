@@ -1,0 +1,98 @@
+<h2 mat-dialog-title> Nuevo Metadato </h2>
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Nombre del metadato" formControlName="field_name_text"
+             [ngClass]="{ 'is-invalid': submitted && form.field_name_text.errors }"/>
+      <mat-error *ngIf="submitted && form.field_name_text.errors" class="invalid-feedback">
+        <div *ngIf="form.field_name_text.errors.required">Nombre de metadato requerido</div>
+        <div *ngIf="form.field_name_text.errors.minLength">Tamaño mínimo de 2 caracteres</div>
+        <div *ngIf="form.field_name_text.errors.maxLength">Tamaño máximo 40 caracteres</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <mat-select formControlName="cat_dataType_id" (selectionChange)="selectMetadataChanged()" placeholder="Seleccione un tipo de dato" [ngClass]="{ 'is-invalid': submitted && form.cat_dataType_id.errors }" matInput>
+        <mat-option *ngFor="let dataType of catDataType" [value]="dataType.id">{{ dataType.name }}</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="form.cat_dataType_id.hasError('required')">Tipo de dato requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Tamaño" formControlName="max_length" max="255" [ngClass]="{ 'is-invalid': submitted && formGroup.controls.max_length.errors }"/>
+      <mat-error *ngIf="submitted && form.max_length.errors" class="invalid-feedback">
+        <div *ngIf="form.max_length.errors?.required">Tamaño requerido</div>
+        <div *ngIf="form.max_length.hasError('pattern')">El tamaño debe ser numérico</div>
+        <div *ngIf="form.max_length.errors.min">El tamaño debe ser mayor a 0</div>
+        <div *ngIf="form.max_length.errors.max">El tamaño debe ser menor o igual a 255</div>
+      </mat-error>
+    </mat-form-field>
+
+    <section>
+      <mat-slide-toggle formControlName="required">Requerido</mat-slide-toggle>
+    </section>
+
+    <section>
+      <mat-error *ngIf="submitted && form.isInternal  .errors" class="invalid-feedback">
+        <div *ngIf="form.isInternal.errors?.required">Debe seleccionar alguna de las opciones</div>
+      </mat-error>
+      <mat-checkbox formControlName="isInternal">Interno</mat-checkbox>
+      <mat-checkbox formControlName="isExternal">Externo</mat-checkbox>
+    </section>
+  </form>
+
+
+  <div *ngIf="showCatalogoptions">
+    <form (ngSubmit)="addCatalogOption(formDirective)" [formGroup]="metadataformGroup" #formDirective="ngForm">
+      <mat-form-field class="mt-full-width">
+
+      <input matInput placeholder="Agregar a catálogo" formControlName="metadataField" [ngClass]="{ 'is-invalid': metadataformGroup.controls.metadataField.errors }">
+        <mat-error *ngIf="metadataForm.metadataField.errors" class="invalid-feedback">
+          <div *ngIf="metadataForm.metadataField.errors.required">Campo requerido</div>
+          <div *ngIf="metadataForm.metadataField.errors.minLength">El tamaño debe ser mayor a 1 caracter</div>
+          <div *ngIf="metadataForm.metadataField.errors.maxLength">El tamaño debe ser menor o igual a 255 caracteres</div>
+        </mat-error>
+      </mat-form-field>
+      <button mat-flat-button color="primary" class="button-new-catalog-option">Agregar</button>
+    </form>
+
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-full-width">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contenido de catálogo </th>
+        <td mat-cell *matCellDef="let metadata"> {{metadata.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>
+          <!--<fa-icon [icon]="faUserPlus" size="2x" class="user-add-icon" (click)="openNewUser()" title="Agregar nuevo usuario" style="cursor: pointer"></fa-icon>-->
+        </th>
+        <td mat-cell *matCellDef="let metadata">
+          <!--<fa-icon [icon]="faEdit" size="1x" class="user-edit-icon" (click)="editCatalogOption(metadata)" title="" style="cursor: pointer"></fa-icon>-->
+          <fa-icon [icon]="faDelete" size="1x" class="user-delete-icon" (click)="deleteCatalogOption(metadata)" title="" style="cursor: pointer"></fa-icon>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+    </table>
+    <div *ngIf="dataSource.data.length === 0">
+      {{ emptyTableText }}
+    </div>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="addMetadata()">
+    <fa-icon [icon]="faPlus" size="1x" style="cursor: pointer"></fa-icon> Crear
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">
+    <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon> Cancelar
+  </button>
+</mat-dialog-actions>

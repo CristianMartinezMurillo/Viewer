@@ -1,0 +1,16 @@
+<div>
+    <p class="p-recipient-type">Seleccione el tipo de destinatario</p>
+
+    <mat-radio-group #addresseeRadio
+                     [disabled]="addresseeGroupButtonStatus || subjectType === 2"
+                     class="radio-button-addressee"
+                     (change)="changeRecipientType($event.value)" [(ngModel)]="chosenItem">
+        <mat-radio-button class="radio-button" *ngFor="let recipient of recipientOptions" [value]="recipient" [checked]="recipient.checked">
+            {{ recipient.name }}
+        </mat-radio-button>
+    </mat-radio-group>
+
+    <p>{{ addresseeTypeRadio?.description }}</p>
+
+    <app-addressee-tree #addresseeTreeComponent></app-addressee-tree>
+</div>

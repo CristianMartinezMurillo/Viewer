@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="admin-title-container mat-typography">
+    <h2>
+      <!--<fa-icon [icon]=""></fa-icon> -->
+      Enviado externo ({{ mailboxStatus }})</h2>
+  </div>
+
+  <!--<div class="spinner-container" *ngIf="dataSource.loading$ | async">-->
+  <!--<mat-spinner></mat-spinner>-->
+  <!--</div>-->
+  <app-error-message></app-error-message>
+  <app-advanced-search></app-advanced-search>
+
+  <mat-divider></mat-divider>
+
+  <mat-form-field class="mt-full-width">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar asuntos">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-full-width">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject.subjectRequest.folio }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="subjectTitle">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Asunto</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject.subjectRequest.title }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="created_at">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Elaboración</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject.created_at }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="untilDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de termino</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject.subjectRequest.untilDate }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <td mat-cell *matCellDef="let subject">
+        <div *ngIf="subject?.subjectOutTime === 1">
+          <div class="subject-status-out-time outtime"></div>
+          <!--<fa-icon [icon]="faCalendar" size="1x" style="color: red;" ></fa-icon>-->
+        </div>
+        <div *ngIf="subject?.subjectOnTime === 1">
+          <div class="subject-status-out-time ontime"></div>
+          <!--<fa-icon [icon]="faCalendar" size="1x" style="color: green;" ></fa-icon>-->
+        </div>
+        <div *ngIf="subject?.almostFinished === 1">
+          <div class="subject-status-out-time almost-finished"></div>
+          <!--<fa-icon [icon]="faCalendar" size="1x" style="color: green;" ></fa-icon>-->
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let subject">
+        <fa-icon [icon]="openIcon" size="1x" style="cursor: pointer" (click)="openSubject(subject)"></fa-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let subject; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == subject.id}"
+        (click)="selectedSubject(subject)">
+    </tr>
+  </table>
+
+  <div *ngIf="dataSource?.data?.length === 0"> {{ emptyTableText }}</div>
+
+  <mat-paginator [length]=0
+                 [pageSize]="tablePageSize"
+                 [pageSizeOptions]=tablePageSizeOptions>
+  </mat-paginator>
+
+  <app-notifier></app-notifier>
+
+</div>

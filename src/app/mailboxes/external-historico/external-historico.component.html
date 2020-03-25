@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="admin-title-container mat-typography">
+    <h2>
+      <!--<fa-icon [icon]=""></fa-icon> -->
+      Histórico externos</h2>
+  </div>
+
+  <br>
+
+  <app-error-message></app-error-message>
+
+  <div class="settings-container">
+    <button (click)="openTableFilters()" class="btn btn-sm btn-primary">Filtrar columnas</button>
+  </div>
+
+  <mat-form-field class="mt-full-width">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar asuntos">
+  </mat-form-field>
+  <!--<div class="spinner-container" *ngIf="dataSource.loading$ | async">-->
+  <!--<mat-spinner></mat-spinner>-->
+  <!--</div>-->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-full-width">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Folio</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject?.folio }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject?.process?.process_name_text }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="finalizar_datetime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Finalizado</th>
+      <td mat-cell *matCellDef="let subject"> {{ subject?.finalizar_datetime }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let subject">
+        <fa-icon [icon]="openIcon" size="1x" style="cursor: pointer" (click)="openSubject(subject)"></fa-icon>
+      </td>
+    </ng-container>
+
+    <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns | slice:lastIndexDefaultFields; let i = index">
+      <!--<ng-container [matColumnDef]="column" *ngFor="let column of filterSelected  let i = index">-->
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ column }} </th>
+      <td mat-cell *matCellDef="let subject"> {{ subject.filters[i] }} </td>
+      <!--<td mat-cell *matCellDef="let subject"> {{ subject['subjectRequest']['metadataValues'][column] }} </td>-->
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let subject; columns: displayedColumns;"
+        [ngClass]="{'highlight': selectedRowIndex == subject.id}"
+        (click)="selectedSubject(subject)">
+    </tr>
+  </table>
+
+  <div *ngIf="dataSource?.data?.length === 0"> {{ emptyTableText }}</div>
+
+  <mat-paginator [length]=0
+                 [pageSize]="tablePageSize"
+                 [pageSizeOptions]=tablePageSizeOptions>
+  </mat-paginator>
+
+  <app-notifier></app-notifier>
+</div>

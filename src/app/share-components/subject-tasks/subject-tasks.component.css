@@ -1,0 +1,34 @@
+.task-description{
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.user-assigned-label{
+  color: #5a6268;
+}
+
+.user-assigned-text{
+  color: #d39e00;
+}
+
+.answers-wrapper{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.answer-text{
+  color: #2b3a42;
+}
+
+.title {
+    color: #4e555b;
+    font-size: 1em;
+}
+
+.without-tasks-title {
+    color: #4e555b;
+    font-size: .8em;
+}
+.task-completed {
+    color: #721c24;
+}

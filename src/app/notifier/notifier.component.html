@@ -1,0 +1,9 @@
+<ng-template #customNotification let-notificationData="notification">
+  <div type="notificationData.type">
+    <div class="title" *ngIf="notificationData?.title"> <strong>{{ notificationData?.title }} </strong></div>
+
+    <div class="message">{{ notificationData.message }} </div>
+  </div>
+</ng-template>
+
+<notifier-container></notifier-container>

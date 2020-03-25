@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <div (click)="toggleSidebar()">
+        <fa-icon [icon]="faBars" size="1x" class="bars-icon"></fa-icon>
+    </div>
+    <a class="navbar-brand" href="" style="cursor: pointer">
+        {{ systemSettings?.APP_NAME }}
+    </a>
+    <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
+        <ul class="navbar-nav mr-auto">
+            <li *ngIf="userService.isRoot() || userService.isAdmin()" class="nav-item">
+                <a class="nav-link" [routerLink]="['systemSettings']">Configuración</a>
+            </li>
+
+            <li *ngIf="userService.isRoot() || userService.isAdmin()"  class="nav-item">
+                <a class="nav-link" [routerLink]="['users']">Usuarios</a>
+            </li>
+
+            <li *ngIf="userService.isRoot() || userService.isAdmin()" class="nav-item">
+                <a class="nav-link" [routerLink]="['companies']">Empresas</a>
+            </li>
+
+            <li *ngIf="userService.isRoot() || userService.isAdmin()" class="nav-item">
+                <a class="nav-link" [routerLink]="['organizationalUnit']">Unidad Organizacional</a>
+            </li>
+
+            <li *ngIf="userService.isRoot() || userService.isAdmin()" class="nav-item">
+                <a class="nav-link" [routerLink]="['process']">Procesos</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto justify-content-end">
+            <li class="nav-item">
+        <span class="nav-link">
+          <fa-icon [icon]="faSignOut" size="1x" title="Cerrar Sesión" style="cursor: pointer"
+                   (click)="logout()"></fa-icon>
+        </span>
+            </li>
+        </ul>
+    </div>
+</nav>

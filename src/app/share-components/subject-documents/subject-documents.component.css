@@ -1,0 +1,11 @@
+.download-section{
+    cursor: pointer;
+}
+.error {
+    color: #dc3545;
+    font-size: .8em;
+}
+.error-icon {
+    text-align: right;
+    cursor: pointer;
+}

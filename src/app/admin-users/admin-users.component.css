@@ -1,0 +1,16 @@
+table {
+    width: 100%;
+}
+
+.user-delete-icon{
+    //color: red;
+}
+
+.user-edit-icon{
+    //color: rgb(253, 126, 20);
+    margin-right: 10px;
+}
+
+.user-add-icon{
+    //color: darkgreen;
+}

@@ -1,0 +1,12 @@
+<div class="mailbox-container">
+    <app-error-message></app-error-message>
+
+    <div *ngIf="mailboxType === 'inbox'">
+        <app-inbox></app-inbox>
+    </div>
+    <div *ngIf="mailboxType === 'inboxout'">
+        <app-inboxout></app-inboxout>
+    </div>
+</div>
+
+

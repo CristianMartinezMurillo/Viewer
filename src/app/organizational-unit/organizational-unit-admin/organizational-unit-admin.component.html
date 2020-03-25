@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="admin-title-container mat-typography">
+        <h2>
+            <fa-icon [icon]="organizationalUnitIconTitle"></fa-icon>
+            Unidad Organizacional
+        </h2>
+    </div>
+    <mat-divider></mat-divider>
+
+    <app-error-message></app-error-message>
+
+    <div class="panel-actions">
+        <button class="btn btn-primary" (click)="newOrganizationalUnitDialog()" style="cursor: pointer;">
+            <fa-icon [icon]="addAdminUnit" size="1x" class="user-edit-icon"
+                     title="Nueva Unidad Organizacional"></fa-icon>
+        </button>
+        <button class="btn btn-danger" (click)="deleteOrganizationUnitDialog()">
+            <fa-icon [icon]="deleteAdminUnit" size="1x" class="user-edit-icon"
+                     title="Eliminar Unidad Organizacional"></fa-icon>
+        </button>
+        <button class="btn btn-info" (click)="edit()">
+            <fa-icon [icon]="faEdit" size="1x" class="user-edit-icon" title="Editar Unidad Organizacional"></fa-icon>
+        </button>
+        <button class="btn btn-info" (click)="userInterface()   ">
+            <fa-icon [icon]="faUsers" size="1x" class="user-edit-icon"
+                     title="Miebros de la unidad organizacional"></fa-icon>
+        </button>
+    </div>
+    <div *ngIf="nodes.length === 0 && loading === false">
+        <div class="alert alert-warning">
+            No existen empresas creadas, dirijase al menú empresas para crear una.
+        </div>
+    </div>
+    <div>
+        <div class="mt-full-width text-center">
+            <mat-spinner class="spinner-center" *ngIf="loading" [diameter]="40"></mat-spinner>
+        </div>
+
+        <mat-form-field class="">
+            <input type="text" placeholder="Filtrar" #filterField (keyup)="$event.keyCode === 13 ? filterNodes($event.target.value) : null" matInput>
+        </mat-form-field>
+        <button class="btn btn-primary btn-sm" (click)="filterNodes(filterField.value);">
+            <fa-icon [icon]="faSearch" size="1x" class="user-edit-icon"></fa-icon>
+        </button>
+
+        <tree-root #tree [options]="treeOptions" [nodes]="nodes" [focused]="true" (initialized)="initializedTree()">
+            <ng-template #treeNodeTemplate let-node let-index="index">
+                <span>
+                    <fa-icon *ngIf="node.data.nodeType === 'company';else ElseIscompany" [icon]="faCompany" size="1x" class="user-edit-icon"></fa-icon>
+                    <ng-template #ElseIscompany>
+                        <fa-icon [icon]="faOrganizationalUnit" size="1x" class="user-edit-icon"></fa-icon>
+                    </ng-template>
+                    {{ node.data.name }} </span>
+                <!--<button (click)="customaction($event, node)">Custom Action</button>-->
+            </ng-template>
+        </tree-root>
+    </div>
+</div>

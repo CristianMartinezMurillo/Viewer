@@ -1,0 +1,19 @@
+<div class="admin-title-container mat-typography">
+    <h2>Flujo del asunto</h2>
+</div><mat-tab-group>
+    <mat-tab label="Gráfica">
+        <ng-template matTabContent>
+            <app-graph></app-graph>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Descripción">
+        <ng-template matTabContent>
+            <app-details></app-details>
+        </ng-template>
+    </mat-tab>
+    <mat-tab label="Documentos">
+        <ng-template matTabContent>
+            <app-documents></app-documents>
+        </ng-template>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,40 @@
+<div class="admin-title-container mat-typography">
+  <h2>
+    <!--<fa-icon [icon]="titleIcon"></fa-icon> -->
+    Filtrar por columnas
+     </h2>
+</div>
+
+<mat-divider></mat-divider>
+
+
+<app-error-message></app-error-message>
+<form [formGroup]="formGroup" >
+    <mat-form-field class="mt-full-width">
+        <mat-select (selectionChange)="onChangeProcess($event.value)"
+                    formControlName="process"
+                    placeholder="Seleccione el asunto"
+                    [ngClass]="{ 'is-invalid': form.process.errors }" matInput>
+            <mat-option *ngFor="let process of processes" [value]="process">
+                {{ process.process_name_text }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+        <mat-select formControlName="metadata"
+                    placeholder="Seleccione los campos"
+                    (openedChange)="valueChangeMetadataSelect()"
+                    [ngClass]="{ 'is-invalid': form.metadata.errors }"
+                    matInput
+                    multiple>
+            <mat-option *ngFor="let metadata of metadataArray" [value]="metadata">
+                {{ metadata.field_name_text }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <button (click)="applyFilters()" class="mat-raised-button mat-primary" mat-button>Aplicar filtro</button>
+    <button (click)="removeFilters()" class="mat-raised-button mat-warn" mat-button>Eliminar filtros</button>
+    <button (click)="closeModal()" class="mat-raised-button" mat-button>Cancelar</button>
+</form>

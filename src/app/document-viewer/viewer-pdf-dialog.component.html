@@ -1,0 +1,41 @@
+<button class="btn btn-sm close-button btn-danger" [mat-dialog-close]="true">X</button>
+
+<h2 mat-dialog-title> {{ documentTitle }}</h2>
+
+<mat-divider></mat-divider>
+
+<div *ngIf="isLoaded">
+    <mat-form-field class="counterPage">
+        <input class="" matInput type="number" [min]="1" [max]="totalPages" placeholder="Página" [(ngModel)]="page" pattern="-?[0-9]*(\.[0-9]+)?" (change)="scrollToPage($event.target.value)" (keyup)="scrollToPage($event.target.value)" />
+    </mat-form-field>
+    de {{ totalPages }}
+    <mat-form-field>
+        <input matInput #inputSearch type="text" (keyup)="search($event)" placeholder="Búscar en pdf">
+    </mat-form-field>
+    <button class="btn btn-sm btn-primary" (click)="findPrevious()"><fa-icon [icon]="faArrowUp" size="1x"></fa-icon></button>
+    <button class="btn btn-sm btn-primary" (click)="findNext()"><fa-icon [icon]="faArrowDown" size="1x"></fa-icon> </button>
+    <span *ngIf="pdfComponent?.pdfFindController?._matchesCountTotal > 0">{{ foundwordIndex }} de {{ pdfComponent?.pdfFindController?._matchesCountTotal }} Coincidencias</span>
+
+</div>
+
+<!--"config?.canCopyText === true"-->
+<mat-dialog-content id="viewer-pdf-dialog" class="viewer-pdf-dialog">
+  <pdf-viewer
+          (text-layer-rendered)="true"
+          [src]="src"
+          [render-text]="dialogData?.canCopyText === 1"
+          [original-size]="originalSize "
+          [show-all]="showAll"
+          [stick-to-page]="stickToPage"
+          [fit-to-page]="fitToPage"
+          [external-link-target]="'blank'"
+          [autoresize]="autoresize"
+          (error)="onError($event)"
+          (on-progress)="onProgress($event)"
+          (page-rendered)="pageRendered($event)"
+          (after-load-complete)="afterLoadComplete($event)"
+          style="display: block;"
+  >
+  </pdf-viewer>
+
+</mat-dialog-content>

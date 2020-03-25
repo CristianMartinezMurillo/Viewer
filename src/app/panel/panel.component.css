@@ -1,0 +1,168 @@
+.navbar-container {
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
+    width: 260px;
+    background: #eee;
+}
+
+.bars-icon{
+    margin-right: 20px;
+    color: #5a6268;
+    cursor: pointer;
+}
+
+.wrapper-router-outlet {
+    /*padding-top: 70px;*/
+}
+
+/*!*----------------page-wrapper----------------*!*/
+
+.page-wrapper {
+    height: 100%;
+}
+
+.page-wrapper .theme {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border-radius: 4px;
+    margin: 2px;
+}
+
+.page-wrapper .theme.chiller-theme {
+    background: #1d1d1d;
+}
+
+.page-wrapper .theme.ice-theme {
+    background: #2b3a42;
+}
+
+.page-wrapper .theme.light-theme {
+    background: #f1f0ed;
+}
+
+.page-wrapper .theme.cool-theme {
+    background: #38373d;
+}
+
+.page-wrapper .theme.green-theme {
+    background: #2c5e2e;
+}
+
+.page-wrapper .theme.spicy-theme {
+    background: #8e2800;
+}
+
+.page-wrapper .theme.purple-theme {
+    background: #372049;
+}
+
+
+.sidebar-content {
+    max-height: calc(100% - 30px);
+    height: calc(100% - 30px);
+    overflow-y: auto;
+    position: relative;
+}
+
+.sidebar-content.desktop {
+    overflow-y: hidden;
+}
+
+/*!*--------------------sidebar-brand----------------------*!*/
+
+.sidebar-wrapper .sidebar-brand {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-wrapper .sidebar-brand > a {
+    text-transform: uppercase;
+    font-weight: bold;
+    flex-grow: 1;
+}
+
+.sidebar-wrapper .sidebar-brand #close-sidebar {
+    cursor: pointer;
+    font-size: 20px;
+}
+/*!*--------------------sidebar-header----------------------*!*/
+
+.sidebar-wrapper .sidebar-header {
+    padding: 20px;
+    overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-header .user-pic {
+    text-align: center;
+    width: 100%;
+    padding: 2px;
+    border-radius: 12px;
+    margin-right: 15px;
+    overflow: hidden;
+}
+
+.sidebar-wrapper .sidebar-header .user-pic .profile-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    color: #fff;
+}
+
+.sidebar-wrapper .sidebar-header .user-info {
+    text-align: center;
+    width: 100%;
+}
+
+.sidebar-wrapper .sidebar-header .user-info > span {
+    display: block;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-organizationalUnit {
+    font-size: 12px;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-role {
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-status {
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.sidebar-wrapper .sidebar-header .user-info .user-status i {
+    font-size: 8px;
+    margin-right: 4px;
+    color: #5cb85c;
+}
+
+.page-wrapper .page-content {
+    display: inline-block;
+    width: 100%;
+    padding-left: 0px;
+    padding-top: 20px;
+}
+
+.page-wrapper .page-content > div {
+    padding: 20px 40px;
+}
+
+.page-wrapper .page-content {
+    overflow-x: hidden;
+}
+
+
+
+.section-title{
+
+}
+
+.user-name{
+    cursor: pointer;
+}

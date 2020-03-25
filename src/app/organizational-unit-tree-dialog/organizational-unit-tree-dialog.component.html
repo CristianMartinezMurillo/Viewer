@@ -1,0 +1,58 @@
+<div mat-dialog-title>
+    <div class="admin-title-container mat-typography">
+        <h2>
+            <fa-icon [icon]="organizationalUnitIconTitle"></fa-icon>
+            Unidad Organizacional
+        </h2>
+    </div>
+    <mat-divider></mat-divider>
+</div>
+<div mat-dialog-content>
+    <app-error-message></app-error-message>
+
+    <div *ngIf="nodes.length === 0 && loading === false">
+        <div class="alert alert-warning">
+            No existen empresas creadas, dirijase al menú empresas para crear una.
+        </div>
+    </div>
+    <div>
+        <div class="mt-full-width text-center">
+            <mat-spinner class="spinner-center" *ngIf="loading" [diameter]="40"></mat-spinner>
+        </div>
+
+        <mat-form-field class="">
+            <input type="text" placeholder="Filtrar" #filterField
+                   (keyup)="$event.keyCode === 13 ? filterNodes($event.target.value) : null" matInput>
+        </mat-form-field>
+        <button class="btn btn-primary btn-sm" (click)="filterNodes(filterField.value);">
+            <fa-icon [icon]="faSearch" size="1x" class="user-edit-icon"></fa-icon>
+        </button>
+
+        <tree-root #tree [options]="treeOptions" [nodes]="nodes" [focused]="true" (initialized)="initializedTree()">
+            <ng-template #treeNodeTemplate let-node let-index="index">
+                <span>
+                    <fa-icon *ngIf="node.data.nodeType === 'company';else ElseIscompany" [icon]="faCompany" size="1x"
+                             class="user-edit-icon"></fa-icon>
+                    <ng-template #ElseIscompany>
+                        <fa-icon [icon]="faOrganizationalUnit" size="1x" class="user-edit-icon"></fa-icon>
+                    </ng-template>
+                    {{ node.data.name }} </span>
+                <!--<button (click)="customaction($event, node)">Custom Action</button>-->
+            </ng-template>
+        </tree-root>
+    </div>
+
+</div>
+
+<div mat-dialog-actions align="end">
+    <button class="mat-raised-button" mat-button (click)="selectOrganizationalUnit()">
+        <fa-icon [icon]="faUsers" size="1x" style="cursor: pointer"></fa-icon>
+        Seleccionar área
+    </button>
+
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button [mat-dialog-close]="true">
+        <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+        Cancelar
+    </button>
+</div>

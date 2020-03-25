@@ -1,0 +1,32 @@
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-full-width">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+
+  <ng-container matColumnDef="step">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Paso</th>
+    <td mat-cell *matCellDef="let data"> {{ data.step }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="documentName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Documento </th>
+    <td mat-cell *matCellDef="let data"> {{ data.documentName }} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="uploadDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Carga </th>
+    <td mat-cell *matCellDef="let data"> {{ data.uploadDate }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario Creador</th>
+    <td mat-cell *matCellDef="let data"> {{ data.userName }} </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+</table>

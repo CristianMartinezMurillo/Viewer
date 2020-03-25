@@ -1,0 +1,91 @@
+<app-error-message></app-error-message>
+
+<section class="subject-options">
+    <button class="btn" [ngClass]="{'btn-primary': subjectType === 1, 'btn-light': subjectType === 2}"
+            (click)="changeSubjectType(1)">Nuevo asunto interno
+    </button>
+    <button class="btn" [ngClass]="{'btn-primary': subjectType === 2, 'btn-light': subjectType === 1}"
+            (click)="changeSubjectType(2)">Nuevo asunto Externo
+    </button>
+</section>
+
+<!-- default values -->
+<form [formGroup]="formGroup" #formDirective="ngForm">
+    <mat-form-field class="mt-full-width">
+        <mat-select formControlName="severity"
+                    placeholder="Selecciona la severidad del asunto"
+                    (selectionChange)="setSubjectFinishDate($event.value, fromDateMoment(form.fromDate.value))"
+                    [ngClass]="{ 'is-invalid': form.severity.errors }"
+                    matInput
+        >
+            <mat-option *ngFor="let severity of subjectSeverities$|async" [value]="severity">
+                {{ severity.name }} <span style="font-size: .6em"> ({{ severity.description }}) </span>
+            </mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.severity.hasError('required')">
+            Debe seleccionar la severidad del asunto.
+        </mat-error>
+    </mat-form-field>
+
+    <p class="instruction">Por favor seleccione el periódo de resolución del asunto.</p>
+
+    <mat-form-field>
+        <input matInput placeholder="Fecha de inicio"
+               formControlName="fromDate"
+               [matDatepicker]="fromPicker"
+               [matDatepickerFilter]="isEnableDay"
+               [ngClass]="{ 'is-invalid': form.fromDate.errors }"
+               (dateChange)="setSubjectFinishDate(form.severity.value, $event.value)"
+               [readonly]="true"
+        />
+
+        <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+
+        <mat-datepicker #fromPicker></mat-datepicker>
+
+        <mat-error *ngIf="form.fromDate.errors" class="invalid-feedback">
+            <div *ngIf="form.fromDate.errors.required">Fecha inicio requerida</div>
+        </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Fecha de fin" formControlName="untilDate"
+               [matDatepicker]="untilPicker"
+               [ngClass]="{ 'is-invalid': form.untilDate.errors }"
+               [readonly]="true"
+               [min]="form.fromDate.value"
+        />
+
+        <!--          <mat-datepicker-toggle matSuffix [for]="untilPicker"></mat-datepicker-toggle>-->
+
+        <mat-datepicker #untilPicker></mat-datepicker>
+
+        <mat-error *ngIf="form.untilDate.errors" class="invalid-feedback">
+            <div *ngIf="form.untilDate.errors.required">Fecha fin requerida</div>
+        </mat-error>
+
+    </mat-form-field>
+
+    <div>
+        <app-subject-settings #subjectSettingsComponent></app-subject-settings>
+    </div>
+
+    <mat-form-field class="mt-full-width">
+        <input matInput type="text" formControlName="title" placeholder="Título del asunto"
+               [ngClass]="{ 'is-invalid': form.title.errors }"/>
+
+        <mat-error *ngIf="form.title.errors" class="invalid-feedback">
+            <div *ngIf="form.title.errors.required">Título requerido</div>
+            <div *ngIf="form.title.errors.minLength">El título debe contener al menos 2 caracteres</div>
+            <div *ngIf="form.title.errors.maxLength">El título debe contener como máximo 250 caracteres</div>
+        </mat-error>
+    </mat-form-field>
+
+</form>
+
+<p class="instruction">Por favor complete los campos del asunto.</p>
+
+<dynamic-form #dynamicFormDirective [fields]="formConfig"></dynamic-form>
+
+

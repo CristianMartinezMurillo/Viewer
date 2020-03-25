@@ -1,0 +1,59 @@
+.highlight{
+    background: #80bdff;
+}
+.unread-subject {
+    border-left: #ff4081 3px solid;
+}
+.unread-subject.highlight {
+    background: #80bdff;
+}
+.subject-status-out-time{
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-image: none;
+    background-origin: padding-box;
+    background-position: 0% 0%;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-repeat: repeat;
+    background-size: auto auto;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-collapse: collapse;
+    border-spacing: 0px 0px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    box-sizing: border-box;
+    color: rgb(0, 27, 58);
+    display: block;
+    float: right;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    height: 16px;
+    line-height: 21px;
+    margin-left: 8px;
+    margin-right: 0px;
+    white-space: nowrap;
+    width: 24px;
+}
+
+.ontime{
+    background-color: #1c7430;
+}
+
+.outtime{
+    background-color: rgb(238, 61, 66);
+}
+
+.almost-finished {
+    background-color: rgb(300, 200, 66);
+}
+
+.undefined-subject-date {
+    background-color: rgb(90, 90, 90);
+}
+
+.settings-container {
+    float:right;
+}

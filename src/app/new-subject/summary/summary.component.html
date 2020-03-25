@@ -1,0 +1,74 @@
+<div class="admin-title-container mat-typography">
+  <h2>Resumen del asunto</h2>
+</div>
+
+<div>
+    <p class="subject-type" *ngIf="isInternal()"> Asunto Interno </p>
+    <p class="subject-type" *ngIf="isExternal()"> Asunto Externo </p>
+</div>
+
+<form [formGroup]="formGroup">
+    <mat-form-field class="mt-full-width">
+        <input formControlName="severity" placeholder="Severidad del asunto" [readonly]="true" matInput/>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Fecha de inicio" formControlName="fromDate" [readonly]="true"/>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput placeholder="Fecha de fin" formControlName="untilDate" [readonly]="true"/>
+    </mat-form-field>
+
+    <div>
+        <app-subject-settings #subjectSettingsComponent></app-subject-settings>
+    </div>
+
+    <mat-form-field class="mt-full-width">
+        <input matInput type = "text" formControlName="title" placeholder = "Título del asunto" [readonly]="true"/>
+    </mat-form-field>
+</form>
+
+<p>Campos del asunto</p>
+
+<dynamic-form [disableForm]="true" [fields]="formConfig" #dynamicFormComponent></dynamic-form>
+
+<div class="admin-title-container mat-typography">
+    <h2>Documentos</h2>
+</div>
+
+<div *ngIf="subjectDocuments.length > 0">
+    <ul>
+        <li *ngFor="let document of subjectDocuments">
+            <span>{{ document.name }}</span>
+        </li>
+    </ul>
+</div>
+<div *ngIf="subjectDocuments.length ===0">
+    <p>Sin documentos seleccionados</p>
+</div>
+
+<div class="admin-title-container mat-typography">
+  <h2>
+    <!--<fa-icon [icon]=""></fa-icon> -->
+    Destinatarios</h2>
+</div>
+
+<div *ngIf="selectedRecipients">
+  <div *ngFor="let recipient of selectedRecipients ">
+    <p>
+        <fa-icon [icon]="recipient.icon" size="1x" class="user-edit-icon" ></fa-icon>
+         <span class="reception-type">{{ getReceptionType(recipient) }}</span> - {{ recipient.name }}
+    </p>
+
+    <ul>
+      <div *ngFor="let task of recipient.tasks">
+        <li class="task-description">
+          <fa-icon [icon]="recipient.icon" size="1x" class="user-edit-icon" ></fa-icon>
+            {{ task.description }}
+        </li>
+      </div>
+    </ul>
+
+  </div>
+</div>

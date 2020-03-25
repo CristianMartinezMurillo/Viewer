@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="admin-title-container mat-typography">
+    <h2><fa-icon [icon]=""></fa-icon> Nuevo Proceso</h2>
+  </div>
+  <mat-divider></mat-divider>
+
+  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Nombre del proceso" formControlName="field_name_text"
+             [ngClass]="{ 'is-invalid': submitted && form.field_name_text.errors }"/>
+      <mat-error *ngIf="submitted && form.field_name_text.errors" class="invalid-feedback">
+        <div *ngIf="form.field_name_text.errors.required">Nombre del proceso requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <!--<mat-form-field class="mt-full-width">-->
+      <!--<mat-select formControlName="company" name = "company_id" placeholder="Seleccione una empresa" [ngClass]="{ 'is-invalid': submitted && form.company.errors }" matInput>-->
+        <!--<mat-option *ngFor="let company of companiesArray" [value]="company.id">{{ company.name }}</mat-option>-->
+      <!--</mat-select>-->
+
+      <!--<mat-error *ngIf="form.company.hasError('required')">Seleccione una empresa</mat-error>-->
+    <!--</mat-form-field>-->
+
+  </form>
+
+  <app-error-message></app-error-message>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 mt-full-width">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let metadata">
+        <span *ngIf="!metadata.isCatalog">{{ metadata.field_name_text }} </span>
+        <mat-select *ngIf="metadata.isCatalog" [placeholder]="metadata.field_name_text">
+          <mat-option *ngFor="let option of metadata.catalogData">
+            {{ option.name }}
+          </mat-option>
+        </mat-select>
+      </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Tipo </th>
+      <td mat-cell *matCellDef="let metadata"> {{ metadata.cat_dataTypeText }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="required">
+      <th mat-header-cell *matHeaderCellDef> Requerido </th>
+      <td mat-cell *matCellDef="let metadata"> {{ metadata.requiredText }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="length">
+      <th mat-header-cell *matHeaderCellDef> Tamaño </th>
+      <td mat-cell *matCellDef="let company"> {{ (company.max_length > 0) ? company.max_length : '' }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="isInternal">
+      <th mat-header-cell *matHeaderCellDef> Interno </th>
+      <td mat-cell *matCellDef="let company"> {{ (company.isInternal == true) ?  'si' : 'no' }} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="isExternal">
+      <th mat-header-cell *matHeaderCellDef> Externo </th>
+      <td mat-cell *matCellDef="let company"> {{ (company.isExternal == true ) ? 'si' : 'no' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>
+        <fa-icon [icon]="faAdd" size="2x" class="user-add-icon" (click)="dialogAddNewMetadata()" title="Agregar nuevo metadato" style="cursor: pointer"></fa-icon>
+      </th>
+      <td mat-cell *matCellDef="let metadata">
+        <fa-icon *ngIf="!metadata?.defaultField" [icon]="faEdit" size="1x" class="user-edit-icon" (click)="dialogEditMetadata(metadata)" title="Editar {{ metadata.name  }}" style="cursor: pointer; margin-right: 10px; "></fa-icon>
+        <fa-icon *ngIf="!metadata?.defaultField" [icon]="faDelete" size="1x" class="user-delete-icon" (click)="deleteMetadata(metadata.id)" title="Eliminar {{ metadata.name }}" style="cursor: pointer"></fa-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"> </tr>
+  </table>
+
+  <div *ngIf="dataSource.data.length === 0"> {{ emptyTableText }}</div>
+
+  <div class="mt-full-width text-center"  *ngIf="dataSource.data.length > 0">
+    <button class="btn btn-lg" ngClass="btn-build-process" (click)="buildProcess()">
+      <fa-icon [icon]="faBuild" size="1x" title="Construir proceso"></fa-icon> Generar Proceso
+    </button>
+  </div>
+</div>

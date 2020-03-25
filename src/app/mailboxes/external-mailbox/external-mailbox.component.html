@@ -1,0 +1,15 @@
+<div class="mailbox-container">
+  <app-error-message></app-error-message>
+
+  <div *ngIf="mailboxType === 'inbox'">
+    <app-external-inbox></app-external-inbox>
+  </div>
+  <div *ngIf="mailboxType === 'inboxout'">
+    <app-external-inboxout></app-external-inboxout>
+  </div>
+  <div *ngIf="mailboxType === 'finalizado'">
+    <app-external-finished-mailbox></app-external-finished-mailbox>
+  </div>
+</div>
+
+

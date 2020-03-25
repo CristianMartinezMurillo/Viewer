@@ -1,0 +1,10 @@
+<mat-form-field class="mt-full-width" [formGroup]="group">
+
+    <input matInput [formControlName]="field.name" [placeholder]="field.label" [type]="field.inputType" [id]="field.id">
+
+    <mat-error class="invalid-feedback">
+        <div *ngFor="let validation of field.validations;">
+            <span *ngIf="group.get(field.name).hasError(validation.name)">{{validation.message}}</span>
+        </div>
+    </mat-error>
+</mat-form-field>

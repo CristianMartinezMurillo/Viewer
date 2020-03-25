@@ -1,0 +1,59 @@
+<div class="login-container">
+  <div class="col-xs-12 col-sm-7 col-md-6 col-lg-4 login-form">
+    <mat-card>
+      <div class="login-title text-center">
+        <div class="mat-typography"><h2>{{ settings?.APP_NAME }}</h2></div>
+      </div>
+      <div class="login-image text-center">
+        <img src="assets/images/login/CuboCSDocs.png">
+      </div>
+      <mat-card-content>
+        <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" >
+            <mat-form-field class="mt-full-width">
+              <input type="email" placeholder="Usuario" formControlName="usernameInput" class="" [ngClass]="{ 'is-invalid': submitted && form.usernameInput.errors }"  matInput/>
+              <mat-error *ngIf="submitted && form.usernameInput.errors" class="invalid-feedback">
+                <div *ngIf="loginForm.controls.usernameInput.errors.required">Usuario Requerido</div>
+                <div *ngIf="loginForm.controls.usernameInput.errors.email">Email inválido</div>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mt-full-width">
+              <input type="password" placeholder="Password" formControlName="passwordInput" class="mt-full-width" [ngClass]="{ 'is-invalid': submitted && form.passwordInput.errors }"  matInput/>
+              <mat-error *ngIf="submitted && form.passwordInput.errors" class="invalid-feedback">
+                <div *ngIf="loginForm.controls.passwordInput.errors.required">Password Requerido</div>
+                <div *ngIf="form.passwordInput.errors.minlength">La contraseña debe contener al menos 4 caracteres</div>
+              </mat-error>
+            </mat-form-field>
+
+            <!--<mat-form-field class="mt-full-width">-->
+              <!--<mat-select formControlName="instanceSelect" placeholder="Seleccione una instancia" [(value)]="instanceSelected" [ngClass]="{ 'is-invalid': submitted && form.instanceSelect.errors }" matInput>-->
+                <!--<mat-option  *ngFor="let instance of instances" [value]="instance.id">{{instance.name}}</mat-option>-->
+              <!--</mat-select>-->
+              <!--<mat-error *ngIf="form.instanceSelect.hasError('required')">La instancia es requerida</mat-error>-->
+              <!--<mat-error *ngIf="form.instanceSelect.hasError('min')">Debe existir al menos una instancia</mat-error>-->
+
+            <!--</mat-form-field>-->
+
+          <div class="text-right">
+            <button type="submit" class="mat-raised-button mat-primary" [disabled] = "disableButtonLogin" mat-button>{{textButton}}</button>
+          </div>
+          <div class="alert alert-danger login-error-messages" *ngIf="errorResponseLogin">
+            {{ errorTextResponseLogin }}
+          </div>
+        </form>
+
+        <div>
+          <a [routerLink]="['/register/newUser']">Darme de alta en el sistema</a>
+        </div>
+
+        <div>
+          <a [routerLink]="['/forgotpassword']">Olvidé mi contraseña</a>
+        </div>
+
+        <app-error-message></app-error-message>
+      </mat-card-content>
+
+    </mat-card>
+
+  </div>
+</div>

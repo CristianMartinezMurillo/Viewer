@@ -1,0 +1,109 @@
+<app-error-message></app-error-message>
+
+<app-legends></app-legends>
+
+<div>
+    <mat-form-field class="mt-full-width">
+        <input type="text" placeholder="Filtrar áreas" #filterField
+               (keyup)="$event.keyCode === 13 ? filterNodes($event.target.value) : null" matInput>
+    </mat-form-field>
+</div>
+
+
+ <tree-root #tree [nodes]="nodes" [focused]="true" [options]="options">
+    <ng-template #treeNodeTemplate let-node let-index="index">
+
+      <div *ngIf="node.data.nodeType === 'user'">
+          <span class="turnar-node">
+              <mat-checkbox
+                      [checked]="(node.data.TURNAR === true) ? true: false"
+                      #turnarCheckboxUser class="turnar-text"
+                      (change)="changeTurnar($event, node, turnarCheckboxUser, CCCheckboxUser, CCCCheckboxUser)"
+                      value="1" >
+              </mat-checkbox>
+              T
+          </span>
+
+          <span class="cc-node">
+              <mat-checkbox
+                      [checked]="(node.data.CC === true) ? true: false"
+                      #CCCheckboxUser
+                      (change)="changeCC($event, node, turnarCheckboxUser, CCCheckboxUser, CCCCheckboxUser)"
+                      value="1" >
+              </mat-checkbox>
+              CC
+          </span>
+
+          <span class="cc-node">
+            <mat-checkbox
+                #CCCCheckboxUser
+                [checked]="(node.data.CCC === true) ? true: false"
+                (change)="changeCCC($event, node, turnarCheckboxUser, CCCheckboxUser, CCCCheckboxUser);" value="1" >
+            </mat-checkbox>
+            CCC
+          </span>
+          <span class="task-node" (click)="newTaskDialog(node);">
+              <fa-icon [icon]="faTask" size="1x" class=""></fa-icon>
+              Tarea
+          </span>
+
+          <span>
+              <fa-icon [icon]="node.data.icon" size="1x" class="user-edit-icon" ></fa-icon>
+              {{ node.data.name }}
+          </span>
+      </div>
+
+      <div *ngIf="node.data.nodeType === 'organizationalUnit'">
+          <div *ngIf="node.data.hidden === false && node.data.canReceiveSubjects == true; else hiddenTemplate">
+              <span class="turnar-node">
+              <mat-checkbox
+                      [checked]="(node.data.TURNAR === true) ? true: false"
+                      #turnarCheckBoxOU class="turnar-check"
+                      (change)="changeTurnar($event, node, turnarCheckBoxOU, CCCheckboxOU, CCCCheckboxOU)"
+                      value="1" >
+              </mat-checkbox>
+              T
+          </span>
+              <span class="cc-node">
+            <mat-checkbox
+                #CCCheckboxOU
+                [checked]="(node.data.CC === true) ? true: false"
+                (change)="changeCC($event, node, turnarCheckBoxOU, CCCheckboxOU, CCCCheckboxOU);" value="1" >
+            </mat-checkbox>
+            CC
+        </span>
+              <span class="cc-node">
+            <mat-checkbox
+                #CCCCheckboxOU
+                [checked]="(node.data.CCC === true) ? true: false"
+                (change)="changeCCC($event, node, turnarCheckBoxOU, CCCheckboxOU, CCCCheckboxOU);" value="1" >
+            </mat-checkbox>
+            CCC
+        </span>
+              <span class="task-node" (click)="newTaskDialog(node);">
+              <fa-icon [icon]="faTask" size="1x" class=""></fa-icon>
+              Tarea
+          </span>
+          <span>
+              <fa-icon [icon]="node.data.icon" size="1x" class="user-edit-icon" ></fa-icon>
+                  {{ node.data.name }}
+          </span>
+          </div>
+          <ng-template #hiddenTemplate>
+            <span>
+              <fa-icon [icon]="node.data.icon" size="1x" class="user-edit-icon" ></fa-icon>
+                  {{ node.data.name }}
+            </span>
+          </ng-template>
+
+
+      </div>
+
+      <div *ngIf="node.data.nodeType === 'task'">
+        <fa-icon [icon]="node.data.icon" size="1x" class="" ></fa-icon> {{ node.data.name }}
+        <span (click)="deleteTask(node)"><fa-icon [icon]="faTrash" size="1x" class="delete-task-span"></fa-icon> </span>
+      </div>
+
+      <!--<button (click)="customaction($event, node)">Custom Action</button>-->
+    </ng-template>
+  </tree-root>

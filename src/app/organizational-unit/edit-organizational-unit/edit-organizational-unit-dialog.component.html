@@ -1,0 +1,46 @@
+<h2 mat-dialog-title><fa-icon [icon]="organizationalUnitIconTitle"></fa-icon>
+    {{ dialogData.name }}
+</h2>
+<mat-dialog-content>
+  <form [formGroup]="formGroup">
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Nombre de la unidad organizacional" formControlName="name"
+             [ngClass]="{ 'is-invalid': submitted && form.name.errors }"/>
+      <mat-error *ngIf="submitted && form.name.errors" class="invalid-feedback">
+        <div *ngIf="form.name.errors.required">Nombre de la empresa requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Código" formControlName="code" [ngClass]="{ 'is-invalid': submitted && form.code.errors }"/>
+      <mat-error *ngIf="submitted && form.code.errors" class="invalid-feedback">
+        <div *ngIf="form.code.errors.required">Código de área requerida</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Descripción" formControlName="description" [ngClass]="{ 'is-invalid': submitted && form.description.errors }"/>
+      <mat-error *ngIf="submitted && form.description.errors" class="invalid-feedback">
+        <div *ngIf="form.description.errors.required">Descripción requerida</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="canReceiveSubjects">Recibe asuntos</mat-slide-toggle>
+
+  </form>
+
+  <app-error-message></app-error-message>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="save()">
+    <fa-icon [icon]="faEdit" size="1x" style="cursor: pointer"></fa-icon> Modificar
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">
+    <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon> Cancelar
+  </button>
+</mat-dialog-actions>

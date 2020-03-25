@@ -1,0 +1,34 @@
+<div class="container attachments-container">
+    <button class="btn btn-info btn-sm" (click)="openAddFilesDialog()"><fa-icon [icon]="faPaperClip"></fa-icon> {{ buttonText }}</button>
+
+    <input *ngIf="isMultiple" type="file" #file style="display: none" (change)="onFilesAdded()" multiple />
+
+    <input *ngIf="!isMultiple" type="file" #file style="display: none" (change)="onFilesAdded()" [accept]="acceptsString" />
+
+    <div *ngIf="listFiles.length > 0">
+        <div class="attachments-text">
+            <button *ngIf="isMultiple" class="btn btn-light btn-sm" (click)="reset();"><fa-icon [icon]="faTrash" title="Eliminar adjuntos"> </fa-icon> Eliminar Todo </button>
+        </div>
+
+        <div class="document-text" *ngFor="let fileItem of listFiles; index as i" [attr.data-index]="i">
+            {{ fileItem.name }} <span><button (click)="removeAttachment(i)" class="btn btn-light btn-sm">X</button></span>
+        </div>
+
+    </div>
+
+    <div *ngIf="setConfig === true && listFiles.length > 0">
+        <p>
+            Asignar permisos sobre los documentos adjuntos para los destinatarios
+        </p>
+
+        <form [formGroup]="formGroup">
+            <div>
+                <mat-checkbox formControlName = "canCopyText">Puede copiar texto</mat-checkbox>
+            </div>
+            <div>
+                <mat-checkbox formControlName = "canDownload">Puede descargar documento(s)</mat-checkbox>
+            </div>
+        </form>
+
+    </div>
+</div>

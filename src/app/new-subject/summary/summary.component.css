@@ -1,0 +1,13 @@
+.task-description {
+    text-indent:20px;
+    color: darkolivegreen;
+}
+
+.reception-type {
+    color: #062c33;
+    margin-left: 8px;
+}
+
+.subject-type {
+    font-size: 1.2em;
+}

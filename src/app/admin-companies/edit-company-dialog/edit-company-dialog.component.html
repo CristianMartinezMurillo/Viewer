@@ -1,0 +1,42 @@
+<h2 mat-dialog-title> Editar Empresa </h2>
+<mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Nombre de la empresa" formControlName="name"
+             [ngClass]="{ 'is-invalid': submitted && form.name.errors }"/>
+      <mat-error *ngIf="submitted && form.name.errors" class="invalid-feedback">
+        <div *ngIf="form.name.errors.required">Nombre de la empresa requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Clave de la empresa" formControlName="business_key" [ngClass]="{ 'is-invalid': submitted && formGroup.controls.business_key.errors }"/>
+      <mat-error *ngIf="submitted && form.business_key.errors" class="invalid-feedback">
+        <div *ngIf="form.business_key.errors.required">Clave empresa requerido</div>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mt-full-width">
+      <input matInput placeholder="Descripción" formControlName="description" [ngClass]="{ 'is-invalid': submitted && form.description.errors }"/>
+      <mat-error *ngIf="submitted && form.description.errors" class="invalid-feedback">
+        <div *ngIf="form.description.errors.required">Descripción requerida</div>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+
+  <app-error-message></app-error-message>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="update()">
+    <fa-icon [icon]="faEdit" size="1x" style="cursor: pointer"></fa-icon> Modificar
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">
+    <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon> Cancelar
+  </button>
+</mat-dialog-actions>

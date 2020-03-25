@@ -1,0 +1,7 @@
+<!--
+ * to create a reactive form. It uses the ng-container element to repeat the dynamicField directive binding.
+-->
+<form *ngIf="form !== undefined" class="dynamic-form" [formGroup]="form">
+    <ng-container dynamicField *ngFor="let field of fields;" [field]="field" [group]="form">
+    </ng-container>
+</form>

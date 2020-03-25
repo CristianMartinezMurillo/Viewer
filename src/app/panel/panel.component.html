@@ -1,0 +1,61 @@
+<app-panel-navbar  [sideBar]="sidenav"></app-panel-navbar>
+
+<mat-sidenav-container class=" page-wrapper chiller-theme toggled">
+    <mat-sidenav class="navbar-container"
+                 #sidenav [mode]="panelMode"
+                 [opened]="showPanel"
+                 role="navigation"
+                 (closed)="closed()"
+                 (opened)="opened()"
+                 (closedStart) = "closeStart()"
+                 (openedStart) = "openStart()"
+    >
+        <nav id="sidebar" class="sidebar-wrapper">
+            <div class="sidebar-content">
+                <div id="toggle-sidebar">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="sidebar-brand">
+                    <!--<div (click)="sidenav.toggle()" style="margin-right: 20px;">-->
+                        <!--<fa-icon [icon]="faBars" size="1x" class="bars-icon"></fa-icon>-->
+                    <!--</div>-->
+                    <!--<a>TSJCDMX</a>-->
+                </div>
+                <div class="sidebar-header">
+                    <div class="user-pic">
+                        <fa-icon class="profile-image" [icon]="userPicture" size="4x"   title="Foto de perfil"></fa-icon>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name">
+                            <strong [routerLink]="['userProfile']">{{ userData?.name + " " + userData?.last_name }}</strong>
+                        </span>
+<!--                        <span class="user-role" *ngIf="userData?.role_id > 0">{{ userData?.role?.name }}</span>-->
+                        <div *ngFor="let organizationalUnit of organizationalUnitsRole">
+                            <span class="user-organizationalUnit">{{ organizationalUnit?.name }}</span>
+                            <span class="user-role" *ngIf="organizationalUnit.role?.name">({{ organizationalUnit.role?.name }})</span>
+                            <span class="user-role" *ngIf="!organizationalUnit.role?.name">(Sin rol asignado)</span>
+                        </div>
+                        <!--<span class="user-status">-->
+                            <!--<i class="fa fa-circle"></i>-->
+                            <!--<span>Online</span>-->
+                        <!--</span>-->
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <mat-divider></mat-divider>
+
+        <app-process-tree></app-process-tree>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="mat-sidenav-content">
+
+        <div class="wrapper-router-outlet">
+            <router-outlet></router-outlet>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

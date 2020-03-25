@@ -1,0 +1,33 @@
+.cc-text {
+    color: #4e555b;
+    font-size: .7em;
+}
+
+.turnar-text {
+    color: #4e555b;
+    font-size: .7em;
+}
+
+.turnar-check {
+    margin-right: 5px;
+}
+
+.turnar-node {
+    font-size: .7em;
+    margin-right: 5px;
+    /*margin-left: 10px;*/
+}
+.cc-node {
+    font-size: .7em;
+    margin-right: 5px;
+}
+.task-node {
+    font-size: .7em;
+    margin-right: 5px;
+}
+.task-node fa-icon {
+    font-size: 1em;
+}
+.delete-task-span {
+    margin-left: 10px;
+}

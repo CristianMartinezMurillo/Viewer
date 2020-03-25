@@ -1,0 +1,18 @@
+
+<div class="dialog-title">
+  <h2 mat-dialog-title> {{ title }} </h2>
+</div>
+<mat-dialog-content class="dialog-content">
+  {{ textContent }}
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="confirm()" class="button-confirm">
+    <fa-icon [icon]="faConfirm" size="1x"></fa-icon> Confirmar
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button (click)="cancel()" class="button-cancel">
+    <fa-icon [icon]="faCancel" size="1x"></fa-icon> Cancelar
+  </button>
+</mat-dialog-actions>

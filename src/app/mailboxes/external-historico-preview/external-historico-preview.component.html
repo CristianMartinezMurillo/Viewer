@@ -1,0 +1,57 @@
+<h2 mat-dialog-title> {{ subject.process.process_name_text }} </h2>
+<mat-divider></mat-divider>
+<mat-dialog-content>
+  <mat-tab-group>
+    <mat-tab label="Asunto">
+      <div class="subject-creation-information">
+        <div>
+          <strong>Fecha Elaboración:</strong> {{ subjectRequest?.destinatario.created_at }}
+        </div>
+        <div>
+          <strong>Fecha Inicio: </strong>{{ subjectRequest?.fromDate }}
+        </div>
+        <div>
+          <strong>Fecha Fin: </strong> {{ subjectRequest?.untilDate }}
+        </div>
+        <div>
+          <strong> Folio:   </strong> {{ subjectRequest?.folio }}
+        </div>
+      </div>
+
+      <div class="preview-container">
+        <mat-divider></mat-divider>
+
+        <app-subject-documents [repositoryType]="'subject'"></app-subject-documents>
+
+        <dynamic-form [fields]="formConfig" (submit)="submit($event)"></dynamic-form>
+
+        <app-subject-tasks [subjectRequestId]="subjectRequest?.id"></app-subject-tasks>
+
+        <app-subject-answers></app-subject-answers>
+
+        <app-error-message></app-error-message>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Flujo del asunto">
+      <ng-template matTabContent>
+        <app-subject-flow></app-subject-flow>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button *ngIf="canAddAttachments()" (click)="attachDocumentsToSubject()" class="btn btn-sm btn-info subject-button" [disabled]="loading">
+    <fa-icon [icon]="faAnswer" size="1x" style="cursor: pointer"></fa-icon>
+    Agregar anexos
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button mat-button [mat-dialog-close]="true">
+    <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+    Cerrar vista previa
+  </button>
+</mat-dialog-actions>
+<app-document-viewer></app-document-viewer>

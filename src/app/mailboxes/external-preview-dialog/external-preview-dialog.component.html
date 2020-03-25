@@ -1,0 +1,77 @@
+<div class=" subject-title">
+  <h2 class="" mat-dialog-title> {{ subjectRequest?.title }} </h2>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+
+  <mat-tab-group>
+    <mat-tab label="Asunto">
+
+      <app-subject-header [subjectRequest]="subjectRequest"></app-subject-header>
+
+      <div style="margin-top: 20px; margin-bottom: 20px;">
+        <app-subject-documents [repositoryType]="'subject'"></app-subject-documents>
+      </div>
+
+      <dynamic-form [disableForm]="true" [fields]="formConfig"></dynamic-form>
+
+      <app-subject-tasks [subjectRequestId]="subjectRequest?.id"></app-subject-tasks>
+
+      <app-subject-answers></app-subject-answers>
+
+      <app-error-message></app-error-message>
+    </mat-tab>
+
+    <mat-tab label="Flujo del asunto">
+      <ng-template matTabContent>
+        <div class="preview-container-flow">
+          <app-subject-flow></app-subject-flow>
+
+          <app-error-message></app-error-message>
+        </div>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button (click)="openSubjectAnswerDialog()" class="btn btn-sm btn-info subject-button">
+    <fa-icon [icon]="faAnswer" size="1x" style="cursor: pointer"></fa-icon>
+    Responder Asunto
+  </button>
+
+  <button (click)="avanzar()" class="btn btn-sm btn-info subject-button">
+    <fa-icon [icon]="faTurnar" size="1x" style="cursor: pointer"></fa-icon>
+    Avanzar
+  </button>
+
+  <button *ngIf="subjectRequest?.destinatario?.TURNAR && !subjectRequest?.destinatario?.resuelto"
+          (click)="marcarResuelto(subjectRequest.destinatario)" class="btn btn-sm btn-info subject-button">
+    <fa-icon [icon]="faResolver" size="1x" style="cursor: pointer"></fa-icon>
+    Resolver
+  </button>
+
+  <button *ngIf="canRejectSubjectStatus"
+          (click)="rejectSubject(subjectRequest?.destinatario)" class="btn btn-sm btn-info subject-button">
+    <fa-icon [icon]="faResolver" size="1x" style="cursor: pointer"></fa-icon>
+    Rechazar
+  </button>
+
+<!--  <button *ngIf="canFinishSubject(subjectRequest)" (click)="finalizarAsunto()" class="btn btn-sm btn-info subject-button">-->
+<!--    <fa-icon [icon]="faFinish" size="1x" style="cursor: pointer"></fa-icon>-->
+<!--    Finalizar Asunto-->
+<!--  </button>-->
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button [mat-dialog-close]="true" class="btn btn-sm btn-info subject-button">
+    <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+    Cerrar vista previa
+  </button>
+</mat-dialog-actions>
+
+<app-document-viewer></app-document-viewer>
+
+<app-notifier></app-notifier>

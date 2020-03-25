@@ -1,0 +1,42 @@
+<mat-dialog-content>
+    <div class="admin-title-container mat-typography">
+        <!--            <h2><fa-icon [icon]="faUsers"></fa-icon> Usuarios</h2>-->
+        <h2>{{ activeNode.name }}</h2>
+    </div>
+
+    <mat-tab-group #tabMembers (selectedIndexChange)="indexTab = $event;" (focusChange)="onChangeTab($event);">
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <fa-icon [icon]="faUsers" size="1x" class="tab-icon"></fa-icon>
+                Integrantes
+            </ng-template>
+            <app-members [idOrganizationalUnit]="activeNode.id" [roles]="roles"></app-members>
+        </mat-tab>
+
+        <mat-tab>
+            <ng-template mat-tab-label>
+                <fa-icon [icon]="faLinked" size="1x" class="tab-icon"></fa-icon>
+                Asociar Integrantes
+            </ng-template>
+            <app-table-enable-users [organizationalUnit]="activeNode" [roles]="roles"></app-table-enable-users>
+
+        </mat-tab>
+
+    </mat-tab-group>
+
+    <app-error-message></app-error-message>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button *ngIf="indexTab" mat-button (click)="associateUsers()">
+        <fa-icon [icon]="faUsers" size="1x" style="cursor: pointer"></fa-icon>
+        Asociar usuarios
+    </button>
+
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button [mat-dialog-close]="true">
+        <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+        Cancelar
+    </button>
+</mat-dialog-actions>

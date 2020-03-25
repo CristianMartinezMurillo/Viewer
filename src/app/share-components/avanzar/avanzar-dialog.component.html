@@ -1,0 +1,58 @@
+<div class="subject-title">
+    <h2 mat-dialog-title> Avanzar Asunto</h2>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+
+    <app-error-message></app-error-message>
+
+    <mat-horizontal-stepper [linear]="true" #stepper>
+
+        <mat-step label="Destinatarios" [completed]="addresseeTreeComponent.hasAddresseeSelected()" >
+
+            <mat-radio-group #addresseeRadio [disabled]="addresseeGroupButtonStatus" class="radio-button-addressee" (change)="changeAdressee($event.value)">
+                <mat-radio-button class="example-radio-button" *ngFor="let addressee of addressees" [value]="addressee.code" [checked]="addressee.checked">
+                    {{ addressee.name }}
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <p *ngIf="addresseeRadioCompnenet.value === 'user'">Marque los responsables a quienes va dirigido el asunto</p>
+            <p *ngIf="addresseeRadioCompnenet.value === 'organizationalUnit'">Marque las áreas a quienes va dirigido el asunto</p>
+
+            <app-addressee-tree></app-addressee-tree>
+        </mat-step>
+
+
+        <mat-step label="Adjuntar Documentos" [completed]="true">
+
+            <app-upload-file [buttonText]="'Adjuntar documentos al asunto'"></app-upload-file>
+
+            <div class="mt-full-width">
+                <mat-spinner class="spinner-center" *ngIf="showSpinner" [diameter]="20"></mat-spinner>
+            </div>
+
+        </mat-step>
+
+    </mat-horizontal-stepper>
+</mat-dialog-content>
+<mat-dialog-actions class="action-buttons">
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button *ngIf="stepper?.selectedIndex < 1" class="btn btn-sm btn-info subject-button" (click)="stepper.next()">
+        <fa-icon [icon]="faNext" size="1x" style="cursor: pointer"></fa-icon>
+        Siguiente
+    </button>
+
+    <button *ngIf="stepper?.selectedIndex === 1" #buttonSubmit class="btn btn-sm btn-info subject-button" (click)="submit()" [disabled]="disableButton">
+        <!--<fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>-->
+        Avanzar Asunto
+    </button>
+
+    <button [mat-dialog-close]="true" class="btn btn-sm btn-light subject-button">
+        <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+        Cancelar
+    </button>
+</mat-dialog-actions>
+
+<app-notifier></app-notifier>

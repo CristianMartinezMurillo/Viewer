@@ -1,0 +1,74 @@
+body {
+    padding-top: 56px;
+}
+.dialog-confirmation-class .mat-dialog-container {
+    padding: 0;
+}
+
+.dialog-confirmation-class .mat-dialog-actions {
+    margin-bottom: 0px;
+    padding: 10px;
+}
+
+.admin-title-container{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    color: lightslategray;
+}
+
+app-process-tree tree-viewport {
+    overflow: hidden !important;
+    height: auto;
+}
+
+app-addressee-tree tree-viewport {
+    overflow: hidden !important;
+    height: auto;
+}
+
+app-organizational-unit-tree-dialog tree-viewport {
+    overflow: hidden !important;
+    height: auto;
+}
+
+.dialog-class mat-dialog-content {
+    /*height: 95% !important;*/
+    max-height: 83vh !important;
+}
+
+
+.mat-input-element:disabled {
+    color: rgba(0,0,0,.87) !important;
+}
+
+.mat-select-disabled .mat-select-value {
+    color: rgba(0,0,0,.87) !important;
+}
+
+.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    right: -24px !important;
+    top: -2px !important;
+    position: relative;
+    display: inline-table;
+}
+
+ .mat-tab-body-content {
+    overflow: unset !important;
+}
+
+.mat-tab-body.mat-tab-body-active {
+    overflow: unset !important;
+}
+
+p.instruction {
+    color: rgba(0,0,0,.87);
+}
+
+p.sub-title {
+    font-size: 1.1em;
+    color: rgba(0,0,0,.87);
+}
+
+.subject-button {
+    margin-right: 10px;
+}

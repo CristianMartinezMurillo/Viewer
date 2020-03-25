@@ -1,0 +1,45 @@
+<h2 mat-dialog-title> Añadir respuesta </h2>
+
+<mat-divider></mat-divider>
+
+<mat-dialog-content>
+
+  <div class="task-description">
+    {{ task.description }}
+  </div>
+
+  <div class="toolbar">
+    <!--<button class="btn btn-primary btn-sm">-->
+      <!--<fa-icon [icon]="faAttachment" style="cursor: pointer" (click)="attachDocuments()"></fa-icon>-->
+    <!--</button>-->
+    <app-upload-file></app-upload-file>
+  </div>
+
+  <app-error-message></app-error-message>
+
+  <form [formGroup]="formGroup">
+
+    <mat-form-field class="mt-full-width">
+      <textarea type="email" placeholder="Respuesta" formControlName="answer" class="" [ngClass]="{ 'is-invalid': submitted && form.answer.errors }"  matInput></textarea>
+      <mat-error *ngIf="submitted && form.answer.errors" class="invalid-feedback">
+        <div *ngIf="form.answer.errors.required">Respuesta requerida</div>
+      </mat-error>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button mat-butto (click)="addAnswer()" class="btn btn-primary">
+    <!--<fa-icon [icon]="faEdit" size="1x" style="cursor: pointer"></fa-icon> -->
+    Responder
+  </button>
+
+  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+  <button [mat-dialog-close]="true" class="btn btn-info">
+    <fa-icon [icon]="faCancel" size="1x" style="cursor: pointer"></fa-icon>
+    Cancelar
+  </button>
+
+</mat-dialog-actions>
